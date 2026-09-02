@@ -41,6 +41,8 @@ const printBtn =
 const clearBtn =
     document.getElementById("clearBtn");
 
+const hennaArtist =
+    document.getElementById("hennaArtist");
 
 /* =========================================
    MODAL ELEMENTS
@@ -177,6 +179,8 @@ function openEntryModal(entry = null) {
 
         editingEntryId = entry.id;
 
+        hennaArtist.value = entry.artist || "";
+
         entryDate.value = entry.date;
 
         startTime.value = entry.start;
@@ -284,6 +288,8 @@ function closeEntryModal() {
 
 function clearModal() {
 
+    hennaArtist.value = "";
+
     entryDate.value =
         invoiceDate.value ||
         new Date()
@@ -302,15 +308,11 @@ function clearModal() {
 
     modalError.classList.remove("show");
 
-    previewHours.textContent =
-        "0.00";
+    previewHours.textContent = "0.00";
 
-    previewLabor.textContent =
-        "$0.00";
+    previewLabor.textContent = "$0.00";
 
-    previewTotal.textContent =
-        "$0.00";
-
+    previewTotal.textContent = "$0.00";
 }
 
 
@@ -579,6 +581,8 @@ function saveEntry() {
 
     modalError.classList.remove("show");
 
+   const artist =
+        hennaArtist.value;
 
     const date =
         entryDate.value;
@@ -695,6 +699,8 @@ function saveEntry() {
             editingEntryId ||
             Date.now(),
 
+        artist, 
+       
         date,
 
         start,
