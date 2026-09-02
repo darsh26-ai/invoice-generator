@@ -35,14 +35,29 @@ body {
         Roboto,
         Arial,
         sans-serif;
+
     color: var(--text);
     min-height: 100vh;
+
     background:
-        radial-gradient(circle at 0% 0%, rgba(108, 92, 231, 0.16), transparent 28%),
-        radial-gradient(circle at 100% 0%, rgba(232, 67, 147, 0.14), transparent 30%),
-        radial-gradient(circle at 100% 100%, rgba(0, 184, 148, 0.10), transparent 28%),
+        radial-gradient(
+            circle at 0% 0%,
+            rgba(108, 92, 231, 0.16),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(232, 67, 147, 0.14),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 100% 100%,
+            rgba(0, 184, 148, 0.10),
+            transparent 28%
+        ),
         var(--background);
 }
+
 
 /* =========================================
    APP CONTAINER
@@ -55,6 +70,7 @@ body {
     padding: 28px;
 }
 
+
 /* =========================================
    HEADER
 ========================================= */
@@ -62,27 +78,45 @@ body {
 .app-header {
     position: relative;
     overflow: hidden;
+
     color: white;
+
     padding: 32px;
+
     border-radius: 24px;
+
     margin-bottom: 24px;
+
     background:
-        linear-gradient(135deg, #5f3dc4 0%, #6c5ce7 42%, #e84393 100%);
-    box-shadow: 0 16px 40px rgba(108, 92, 231, 0.25);
+        linear-gradient(
+            135deg,
+            #5f3dc4 0%,
+            #6c5ce7 42%,
+            #e84393 100%
+        );
+
+    box-shadow:
+        0 16px 40px rgba(108, 92, 231, 0.25);
 }
 
 .app-header::before,
 .app-header::after {
     content: "";
+
     position: absolute;
+
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.12);
+
+    background:
+        rgba(255, 255, 255, 0.12);
+
     pointer-events: none;
 }
 
 .app-header::before {
     width: 190px;
     height: 190px;
+
     right: -55px;
     top: -80px;
 }
@@ -90,6 +124,7 @@ body {
 .app-header::after {
     width: 120px;
     height: 120px;
+
     right: 170px;
     bottom: -80px;
 }
@@ -102,7 +137,9 @@ body {
 .app-header h1 {
     font-size: 31px;
     line-height: 1.2;
+
     margin-bottom: 8px;
+
     letter-spacing: -0.5px;
 }
 
@@ -111,27 +148,40 @@ body {
     font-size: 15px;
 }
 
+
 /* =========================================
    CARDS
 ========================================= */
 
 .card,
 .summary-card {
-    background: rgba(255, 255, 255, 0.96);
-    border: 1px solid rgba(255, 255, 255, 0.9);
+    background:
+        rgba(255, 255, 255, 0.96);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.9);
+
     border-radius: 22px;
+
     padding: 25px;
+
     margin-bottom: 22px;
-    box-shadow: 0 12px 35px rgba(51, 65, 85, 0.09);
+
+    box-shadow:
+        0 12px 35px rgba(51, 65, 85, 0.09);
 }
 
 .card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 .card:hover {
-    box-shadow: 0 15px 40px rgba(51, 65, 85, 0.12);
+    box-shadow:
+        0 15px 40px rgba(51, 65, 85, 0.12);
 }
+
 
 /* =========================================
    SECTION TITLE
@@ -139,20 +189,35 @@ body {
 
 .section-title {
     display: flex;
+
     align-items: center;
+
     gap: 10px;
+
     margin-bottom: 20px;
 }
 
 .section-title span,
 .summary-title span {
     display: grid;
+
     place-items: center;
+
     width: 42px;
     height: 42px;
+
+    flex-shrink: 0;
+
     border-radius: 13px;
+
     font-size: 21px;
-    background: linear-gradient(135deg, #ede9fe, #fce7f3);
+
+    background:
+        linear-gradient(
+            135deg,
+            #ede9fe,
+            #fce7f3
+        );
 }
 
 .section-title h2,
@@ -161,15 +226,20 @@ body {
     font-weight: 800;
 }
 
+
 /* =========================================
    SECTION HEADER
 ========================================= */
 
 .section-header {
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
     gap: 15px;
+
     margin-bottom: 20px;
 }
 
@@ -177,38 +247,60 @@ body {
     margin-bottom: 0;
 }
 
+
 /* =========================================
    FORM
 ========================================= */
 
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
     gap: 18px;
 }
 
 .form-group {
     display: flex;
+
     flex-direction: column;
+
     gap: 7px;
+
+    min-width: 0;
 }
 
 .form-group label {
     font-size: 13px;
+
     font-weight: 750;
+
     color: #475569;
 }
 
 input {
     width: 100%;
+
     padding: 13px 14px;
-    border: 2px solid #e5e7eb;
+
+    border:
+        2px solid #e5e7eb;
+
     border-radius: 11px;
+
     font-size: 15px;
+
     outline: none;
+
     background: white;
+
     color: var(--text);
-    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s,
+        transform 0.15s;
 }
 
 input:hover {
@@ -217,245 +309,11 @@ input:hover {
 
 input:focus {
     border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.12);
+
+    box-shadow:
+        0 0 0 4px rgba(108, 92, 231, 0.12);
 }
 
-/* =========================================
-   TABLE
-========================================= */
-
-.table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    border-radius: 14px;
-}
-
-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    min-width: 950px;
-    overflow: hidden;
-}
-
-thead {
-    background: linear-gradient(135deg, #f0edff, #fdf0fa);
-}
-
-th {
-    text-align: left;
-    padding: 14px 10px;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #596780;
-    border-bottom: 1px solid #e8eaf0;
-}
-
-td {
-    padding: 15px 10px;
-    border-bottom: 1px solid #edf0f4;
-    font-size: 14px;
-    vertical-align: middle;
-}
-
-tbody tr {
-    transition: background 0.15s ease;
-}
-
-tbody tr:hover {
-    background: #faf8ff;
-}
-
-tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.entry-input {
-    width: 100%;
-    min-width: 105px;
-    padding: 9px 8px;
-    border: 1px solid #d7dce3;
-    border-radius: 7px;
-    font-size: 13px;
-}
-
-.hours-value {
-    font-weight: 800;
-    color: var(--blue);
-    white-space: nowrap;
-}
-
-.money {
-    white-space: nowrap;
-    font-weight: 650;
-}
-
-.total-cell {
-    font-weight: 850;
-    color: #059669;
-}
-
-/* =========================================
-   EMPTY MESSAGE
-========================================= */
-
-.empty-message {
-    text-align: center;
-    padding: 38px 15px;
-    color: var(--muted);
-    font-size: 14px;
-    background: linear-gradient(135deg, #f8f9ff, #fff8fc);
-    border: 1px dashed #d9d4f5;
-    border-radius: 14px;
-}
-
-.empty-message strong {
-    color: var(--primary);
-}
-
-/* =========================================
-   BUTTONS
-========================================= */
-
-.btn {
-    border: none;
-    border-radius: 11px;
-    padding: 11px 17px;
-    font-size: 14px;
-    font-weight: 750;
-    cursor: pointer;
-    transition:
-        transform 0.15s,
-        box-shadow 0.15s,
-        opacity 0.15s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-}
-
-.btn:active {
-    transform: translateY(0);
-}
-
-.btn-primary {
-    color: white;
-    background: linear-gradient(135deg, #6c5ce7, #8e7dff);
-    box-shadow: 0 7px 18px rgba(108, 92, 231, 0.22);
-}
-
-.btn-primary:hover {
-    box-shadow: 0 10px 24px rgba(108, 92, 231, 0.30);
-}
-
-.btn-success {
-    color: white;
-    background: linear-gradient(135deg, #00a884, #00c9a7);
-    box-shadow: 0 7px 18px rgba(0, 184, 148, 0.20);
-}
-
-.btn-secondary {
-    color: #334155;
-    background: #eef2f7;
-}
-
-.btn-danger {
-    color: white;
-    background: linear-gradient(135deg, #dc2626, #ef4444);
-}
-
-/* =========================================
-   ACTION BUTTONS
-========================================= */
-
-.actions {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 25px;
-}
-
-.actions .btn {
-    min-width: 170px;
-}
-
-/* =========================================
-   SUMMARY
-========================================= */
-
-.summary-card {
-    background: linear-gradient(135deg, #ffffff, #faf8ff);
-}
-
-.summary-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.summary-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-}
-
-.summary-item {
-    position: relative;
-    overflow: hidden;
-    min-height: 110px;
-    padding: 20px;
-    border-radius: 17px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 8px;
-    color: white;
-}
-
-.summary-item::after {
-    content: "";
-    position: absolute;
-    width: 85px;
-    height: 85px;
-    right: -30px;
-    top: -30px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
-}
-
-.summary-item:nth-child(1) {
-    background: linear-gradient(135deg, #0984e3, #4dabf7);
-}
-
-.summary-item:nth-child(2) {
-    background: linear-gradient(135deg, #6c5ce7, #9b8cff);
-}
-
-.summary-item:nth-child(3) {
-    background: linear-gradient(135deg, #fd9644, #ffb86c);
-}
-
-.summary-item:nth-child(4) {
-    background: linear-gradient(135deg, #00a884, #20c997);
-}
-
-.summary-item span {
-    font-size: 13px;
-    font-weight: 650;
-    opacity: 0.92;
-}
-
-.summary-item strong {
-    font-size: 26px;
-    font-weight: 850;
-}
 
 /* =========================================
    SELECT DROPDOWN
@@ -463,18 +321,24 @@ tbody tr:last-child td {
 
 select {
     width: 100%;
+
     padding: 13px 14px;
 
-    border: 2px solid #e5e7eb;
+    border:
+        2px solid #e5e7eb;
+
     border-radius: 11px;
 
     font-size: 15px;
+
     font-weight: 600;
 
     color: #1f2937;
+
     background-color: white;
 
     outline: none;
+
     cursor: pointer;
 
     transition:
@@ -498,31 +362,497 @@ select option {
     padding: 10px;
 }
 
+
 /* =========================================
-   MODAL
-   IMPORTANT: HIDDEN BY DEFAULT
+   TABLE
+========================================= */
+
+.table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border-radius: 14px;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: separate;
+
+    border-spacing: 0;
+
+    min-width: 950px;
+
+    overflow: hidden;
+}
+
+thead {
+    background:
+        linear-gradient(
+            135deg,
+            #f0edff,
+            #fdf0fa
+        );
+}
+
+th {
+    text-align: left;
+
+    padding: 14px 10px;
+
+    font-size: 11px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.06em;
+
+    color: #596780;
+
+    border-bottom:
+        1px solid #e8eaf0;
+
+    white-space: nowrap;
+}
+
+td {
+    padding: 15px 10px;
+
+    border-bottom:
+        1px solid #edf0f4;
+
+    font-size: 14px;
+
+    vertical-align: middle;
+}
+
+tbody tr {
+    transition:
+        background 0.15s ease;
+}
+
+tbody tr:hover {
+    background: #faf8ff;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.entry-input {
+    width: 100%;
+
+    min-width: 105px;
+
+    padding: 9px 8px;
+
+    border:
+        1px solid #d7dce3;
+
+    border-radius: 7px;
+
+    font-size: 13px;
+}
+
+.hours-value {
+    font-weight: 800;
+
+    color: var(--blue);
+
+    white-space: nowrap;
+}
+
+.money {
+    white-space: nowrap;
+
+    font-weight: 650;
+}
+
+.total-cell {
+    font-weight: 850;
+
+    color: #059669;
+}
+
+
+/* =========================================
+   EMPTY MESSAGE
+========================================= */
+
+.empty-message {
+    text-align: center;
+
+    padding: 38px 15px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8f9ff,
+            #fff8fc
+        );
+
+    border:
+        1px dashed #d9d4f5;
+
+    border-radius: 14px;
+}
+
+.empty-message strong {
+    color: var(--primary);
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.btn {
+    border: none;
+
+    border-radius: 11px;
+
+    padding: 11px 17px;
+
+    font-size: 14px;
+
+    font-weight: 750;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s,
+        box-shadow 0.15s,
+        opacity 0.15s;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6c5ce7,
+            #8e7dff
+        );
+
+    box-shadow:
+        0 7px 18px rgba(108, 92, 231, 0.22);
+}
+
+.btn-primary:hover {
+    box-shadow:
+        0 10px 24px rgba(108, 92, 231, 0.30);
+}
+
+.btn-success {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00a884,
+            #00c9a7
+        );
+
+    box-shadow:
+        0 7px 18px rgba(0, 184, 148, 0.20);
+}
+
+.btn-secondary {
+    color: #334155;
+
+    background: #eef2f7;
+}
+
+.btn-danger {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dc2626,
+            #ef4444
+        );
+}
+
+
+/* =========================================
+   ACTION BUTTONS
+========================================= */
+
+.actions {
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-bottom: 25px;
+}
+
+.actions .btn {
+    min-width: 170px;
+}
+
+
+/* =========================================
+   COST SUMMARY
+========================================= */
+
+.summary-card {
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #faf8ff
+        );
+}
+
+.summary-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+}
+
+
+/*
+   IMPORTANT
+
+   The summary grid is allowed to resize
+   intelligently instead of forcing four
+   equal-width boxes.
+
+   This prevents values such as:
+
+   $1,250.00
+   $10,500.00
+   $125,000.00
+
+   from being clipped.
+*/
+
+.summary-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            4,
+            minmax(0, 1fr)
+        );
+
+    gap: 15px;
+
+    width: 100%;
+
+    align-items: stretch;
+}
+
+
+/* =========================================
+   SUMMARY ITEM
+========================================= */
+
+.summary-item {
+    position: relative;
+
+    overflow: hidden;
+
+    min-width: 0;
+
+    min-height: 110px;
+
+    padding: 20px;
+
+    border-radius: 17px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    color: white;
+}
+
+.summary-item::after {
+    content: "";
+
+    position: absolute;
+
+    width: 85px;
+    height: 85px;
+
+    right: -30px;
+    top: -30px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.15);
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   SUMMARY COLORS
+========================================= */
+
+.summary-item:nth-child(1) {
+    background:
+        linear-gradient(
+            135deg,
+            #0984e3,
+            #4dabf7
+        );
+}
+
+.summary-item:nth-child(2) {
+    background:
+        linear-gradient(
+            135deg,
+            #6c5ce7,
+            #9b8cff
+        );
+}
+
+.summary-item:nth-child(3) {
+    background:
+        linear-gradient(
+            135deg,
+            #fd9644,
+            #ffb86c
+        );
+}
+
+.summary-item:nth-child(4) {
+    background:
+        linear-gradient(
+            135deg,
+            #00a884,
+            #20c997
+        );
+}
+
+
+/* =========================================
+   SUMMARY LABEL
+========================================= */
+
+.summary-item span {
+    font-size: 13px;
+
+    font-weight: 650;
+
+    opacity: 0.92;
+
+    white-space: nowrap;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* =========================================
+   SUMMARY VALUE
+========================================= */
+
+.summary-item strong {
+    font-size: clamp(
+        21px,
+        2.2vw,
+        26px
+    );
+
+    font-weight: 850;
+
+    /*
+       Never break a currency value
+       into multiple lines.
+    */
+    white-space: nowrap;
+
+    /*
+       Prevent the value from disappearing
+       behind the decorative circle.
+    */
+    position: relative;
+
+    z-index: 2;
+
+    /*
+       Make the value fit naturally.
+    */
+    display: block;
+
+    max-width: 100%;
+}
+
+
+/* =========================================
+   MODAL OVERLAY
 ========================================= */
 
 .modal-overlay {
     position: fixed;
+
     inset: 0;
+
     width: 100%;
     height: 100%;
+
     padding: 15px;
 
     z-index: 9999;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
-    background: rgba(30, 27, 75, 0.58);
+    background:
+        rgba(30, 27, 75, 0.58);
 
     backdrop-filter: blur(7px);
+
     -webkit-backdrop-filter: blur(7px);
 
     opacity: 0;
+
     visibility: hidden;
+
     pointer-events: none;
 
     transition:
@@ -532,7 +862,9 @@ select option {
 
 .modal-overlay.show {
     opacity: 1;
+
     visibility: visible;
+
     pointer-events: auto;
 }
 
@@ -543,9 +875,11 @@ select option {
 
 .modal {
     width: 100%;
+
     max-width: 650px;
 
     height: min(90vh, 700px);
+
     max-height: 90vh;
 
     background: white;
@@ -553,6 +887,7 @@ select option {
     border-radius: 23px;
 
     display: flex;
+
     flex-direction: column;
 
     overflow: hidden;
@@ -560,14 +895,18 @@ select option {
     box-shadow:
         0 30px 90px rgba(15, 23, 42, 0.30);
 
-    transform: translateY(25px) scale(0.97);
+    transform:
+        translateY(25px)
+        scale(0.97);
 
     transition:
         transform 0.22s ease;
 }
 
 .modal-overlay.show .modal {
-    transform: translateY(0) scale(1);
+    transform:
+        translateY(0)
+        scale(1);
 }
 
 
@@ -577,8 +916,11 @@ select option {
 
 .modal-header {
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
     gap: 15px;
 
     padding: 21px 24px;
@@ -600,23 +942,29 @@ select option {
 
 .modal-header h2 {
     font-size: 21px;
+
     font-weight: 800;
 }
 
 .close-btn {
     width: 38px;
+
     height: 38px;
 
-    flex: 0 0 38px;
+    flex:
+        0 0 38px;
 
     border: none;
+
     border-radius: 50%;
 
-    background: rgba(255,255,255,0.17);
+    background:
+        rgba(255,255,255,0.17);
 
     color: white;
 
     font-size: 27px;
+
     line-height: 1;
 
     cursor: pointer;
@@ -627,8 +975,11 @@ select option {
 }
 
 .close-btn:hover {
-    background: rgba(255,255,255,0.30);
-    transform: rotate(90deg);
+    background:
+        rgba(255,255,255,0.30);
+
+    transform:
+        rotate(90deg);
 }
 
 
@@ -637,7 +988,6 @@ select option {
 ========================================= */
 
 .modal-body {
-
     flex: 1;
 
     min-height: 0;
@@ -647,14 +997,10 @@ select option {
     padding: 24px;
 
     display: flex;
+
     flex-direction: column;
 
     gap: 18px;
-
-    /*
-       Important:
-       Body scrolls, NOT the footer.
-    */
 
     -webkit-overflow-scrolling: touch;
 }
@@ -669,11 +1015,10 @@ select option {
 ========================================= */
 
 .calculation-preview {
-
     display: grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+        repeat(3, minmax(0, 1fr));
 
     gap: 10px;
 
@@ -686,7 +1031,8 @@ select option {
             #fff8fc
         );
 
-    border: 1px solid #ebe7ff;
+    border:
+        1px solid #ebe7ff;
 
     border-radius: 14px;
 
@@ -694,17 +1040,17 @@ select option {
 }
 
 .calculation-preview div {
-
     padding: 12px;
 
     border-radius: 11px;
 
     background:
         rgba(255,255,255,0.75);
+
+    min-width: 0;
 }
 
 .calculation-preview span {
-
     display: block;
 
     font-size: 12px;
@@ -712,13 +1058,16 @@ select option {
     color: #64748b;
 
     margin-bottom: 5px;
+
+    white-space: nowrap;
 }
 
 .calculation-preview strong {
-
     font-size: 18px;
 
     color: #334155;
+
+    white-space: nowrap;
 }
 
 #previewTotal {
@@ -727,11 +1076,10 @@ select option {
 
 
 /* =========================================
-   ERROR
+   ERROR MESSAGE
 ========================================= */
 
 .error-message {
-
     display: none;
 
     padding: 11px 13px;
@@ -740,7 +1088,8 @@ select option {
 
     background: #fff1f2;
 
-    border: 1px solid #fecdd3;
+    border:
+        1px solid #fecdd3;
 
     color: #b91c1c;
 
@@ -761,7 +1110,6 @@ select option {
 ========================================= */
 
 .modal-footer {
-
     flex-shrink: 0;
 
     position: relative;
@@ -788,13 +1136,112 @@ select option {
 
 
 /* =========================================
-   MOBILE MODAL
+   TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+
+    .summary-grid {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(180px, 1fr)
+            );
+    }
+
+    .summary-item {
+        min-height: 105px;
+    }
+
+    .summary-item strong {
+        font-size: 24px;
+    }
+}
+
+
+/* =========================================
+   MOBILE / TABLET
 ========================================= */
 
 @media (max-width: 850px) {
 
-    .modal {
+    .app-container {
+        padding: 14px;
+    }
 
+    .app-header {
+        padding: 25px;
+
+        border-radius: 18px;
+    }
+
+    .app-header h1 {
+        font-size: 24px;
+    }
+
+    .card,
+    .summary-card {
+        padding: 18px;
+
+        border-radius: 18px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    /*
+       Two summary boxes per row on
+       tablets and larger phones.
+    */
+
+    .summary-grid {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+        gap: 12px;
+    }
+
+    .summary-item {
+        padding: 16px;
+
+        min-height: 105px;
+    }
+
+    .summary-item strong {
+        font-size: 23px;
+    }
+
+
+    .section-header {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 15px;
+    }
+
+    .section-header .btn {
+        width: 100%;
+    }
+
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .actions .btn {
+        width: 100%;
+    }
+
+
+    /* MODAL */
+
+    .modal {
         height: 94vh;
 
         max-height: 94vh;
@@ -803,29 +1250,113 @@ select option {
     }
 
     .modal-body {
-
         padding: 20px;
-
     }
 }
 
 
 /* =========================================
-   SMALL PHONE
+   PHONE
 ========================================= */
 
 @media (max-width: 500px) {
 
-    .modal-overlay {
+    .app-container {
+        padding: 10px;
+    }
 
+    .app-header {
+        padding: 20px;
+
+        margin-bottom: 16px;
+    }
+
+    .app-header h1 {
+        font-size: 22px;
+    }
+
+    .app-header p {
+        font-size: 13px;
+    }
+
+    .card,
+    .summary-card {
+        padding: 15px;
+
+        border-radius: 16px;
+    }
+
+
+    /*
+       IMPORTANT:
+
+       On small phones we use ONE summary
+       box per row.
+
+       This gives the value enough room
+       regardless of portrait or landscape.
+    */
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+    }
+
+    .summary-item {
+        width: 100%;
+
+        min-height: 92px;
+
+        padding: 16px 18px;
+
+        border-radius: 15px;
+    }
+
+    .summary-item span {
+        font-size: 12px;
+    }
+
+    .summary-item strong {
+        font-size: 25px;
+
+        white-space: nowrap;
+    }
+
+
+    /* =====================================
+       CALCULATION PREVIEW
+    ===================================== */
+
+    .calculation-preview {
+        grid-template-columns: 1fr;
+
+        gap: 8px;
+
+        padding: 12px;
+    }
+
+    .calculation-preview div {
+        padding: 10px;
+    }
+
+
+    /* =====================================
+       MODAL OVERLAY
+    ===================================== */
+
+    .modal-overlay {
         padding: 8px;
 
         align-items: center;
-
     }
 
-    .modal {
 
+    /* =====================================
+       MODAL
+    ===================================== */
+
+    .modal {
         width: 100%;
 
         height: 94vh;
@@ -833,11 +1364,14 @@ select option {
         max-height: 94vh;
 
         border-radius: 18px;
-
     }
 
-    .modal-header {
 
+    /* =====================================
+       MODAL HEADER
+    ===================================== */
+
+    .modal-header {
         min-height: 65px;
 
         height: auto;
@@ -849,13 +1383,10 @@ select option {
     }
 
     .modal-header h2 {
-
         font-size: 18px;
-
     }
 
     .close-btn {
-
         width: 34px;
 
         height: 34px;
@@ -863,11 +1394,14 @@ select option {
         flex-basis: 34px;
 
         font-size: 23px;
-
     }
 
-    .modal-body {
 
+    /* =====================================
+       MODAL BODY
+    ===================================== */
+
+    .modal-body {
         flex: 1;
 
         min-height: 0;
@@ -881,27 +1415,14 @@ select option {
         padding: 17px;
 
         padding-bottom: 25px;
-
     }
 
-    .calculation-preview {
 
-        grid-template-columns: 1fr;
-
-        gap: 8px;
-
-        padding: 12px;
-
-    }
-
-    .calculation-preview div {
-
-        padding: 10px;
-
-    }
+    /* =====================================
+       MODAL FOOTER
+    ===================================== */
 
     .modal-footer {
-
         position: relative;
 
         bottom: auto;
@@ -932,27 +1453,144 @@ select option {
     }
 
     .modal-footer .btn {
-
         width: 100%;
 
         min-height: 46px;
 
         flex-shrink: 0;
     }
-
 }
+
+
+/* =========================================
+   VERY SMALL PHONE
+========================================= */
+
+@media (max-width: 360px) {
+
+    .app-container {
+        padding: 7px;
+    }
+
+    .card,
+    .summary-card {
+        padding: 13px;
+    }
+
+    .summary-item {
+        min-height: 88px;
+
+        padding: 14px 16px;
+    }
+
+    .summary-item strong {
+        font-size: 22px;
+    }
+
+    .summary-item span {
+        font-size: 11px;
+    }
+
+    .modal-overlay {
+        padding: 5px;
+    }
+
+    .modal {
+        height: 96vh;
+
+        max-height: 96vh;
+
+        border-radius: 15px;
+    }
+
+    .modal-body {
+        padding: 14px;
+    }
+
+    .modal-footer {
+        padding:
+            10px 14px;
+    }
+}
+
+
+/* =========================================
+   LANDSCAPE PHONE
+========================================= */
+
+@media (max-width: 850px) and (orientation: landscape) {
+
+    /*
+       Keep summary values readable in
+       landscape mode without allowing
+       them to become tiny.
+    */
+
+    .summary-grid {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(180px, 1fr)
+            );
+    }
+
+    .summary-item {
+        min-height: 95px;
+    }
+
+    .summary-item strong {
+        font-size: 23px;
+    }
+
+
+    /*
+       Modal becomes slightly shorter in
+       landscape, but the footer remains
+       visible because only the body scrolls.
+    */
+
+    .modal {
+        height: 92vh;
+
+        max-height: 92vh;
+    }
+
+    .modal-header {
+        min-height: 58px;
+
+        padding:
+            12px 17px;
+    }
+
+    .modal-body {
+        padding:
+            14px 17px;
+    }
+
+    .modal-footer {
+        padding:
+            9px 17px;
+    }
+
+    .modal-footer .btn {
+        min-height: 42px;
+    }
+}
+
 
 /* =========================================
    PRINT
 ========================================= */
 
 @media print {
+
     body {
         background: white;
     }
 
     .app-container {
         max-width: none;
+
         padding: 0;
     }
 
@@ -967,11 +1605,14 @@ select option {
     .summary-card,
     .app-header {
         box-shadow: none;
-        border: 1px solid #ddd;
+
+        border:
+            1px solid #ddd;
     }
 
     .app-header {
         color: black;
+
         background: white;
     }
 
@@ -985,7 +1626,10 @@ select option {
 }
 
 
-/* Prevent the page behind the modal from scrolling */
+/* =========================================
+   PREVENT BACKGROUND SCROLL
+========================================= */
+
 body.modal-open {
     overflow: hidden;
 }
