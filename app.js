@@ -1931,7 +1931,7 @@ function generatePDF() {
 
 
     const fileName =
-        `Service_Summary_${safeName}_${datePart}.pdf`;
+        `Henna_Service_${safeName}.pdf`;
 
 
     doc.save(fileName);
