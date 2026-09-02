@@ -10,7 +10,6 @@
 ========================================= */
 
 let entries = [];
-
 let editingEntryId = null;
 
 
@@ -93,6 +92,16 @@ const modalError =
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    /*
+       IMPORTANT:
+       Keep the Add Work Entry modal hidden
+       when the page first loads.
+    */
+
+    entryModal.classList.remove("show");
+
+    document.body.classList.remove("modal-open");
+
     setDefaultDates();
 
     loadFromStorage();
@@ -115,9 +124,18 @@ function setDefaultDates() {
     const dateString =
         today.toISOString().split("T")[0];
 
-    invoiceDate.value = dateString;
+    /*
+       Only set today's date if there isn't
+       already a saved invoice date.
+    */
 
-    entryDate.value = dateString;
+    if (!invoiceDate.value) {
+        invoiceDate.value = dateString;
+    }
+
+    if (!entryDate.value) {
+        entryDate.value = dateString;
+    }
 
 }
 
@@ -126,22 +144,34 @@ function setDefaultDates() {
    ADD ENTRY BUTTON
 ========================================= */
 
-addEntryBtn.addEventListener("click", () => {
+addEntryBtn.addEventListener(
+    "click",
+    () => {
 
-    openEntryModal();
+        openEntryModal();
 
-});
+    }
+);
 
 
 /* =========================================
-   MODAL
+   OPEN ENTRY MODAL
 ========================================= */
 
 function openEntryModal(entry = null) {
 
+    /*
+       Clear previous form values first.
+    */
+
     clearModal();
 
     editingEntryId = null;
+
+
+    /*
+       EDIT MODE
+    */
 
     if (entry) {
 
@@ -157,24 +187,89 @@ function openEntryModal(entry = null) {
 
         travelCharge.value = entry.travel;
 
-        saveEntryBtn.textContent = "Update Entry";
-
-    } else {
-
-        saveEntryBtn.textContent = "Save Entry";
+        saveEntryBtn.textContent =
+            "Update Entry";
 
     }
 
+
+    /*
+       ADD MODE
+    */
+
+    else {
+
+        saveEntryBtn.textContent =
+            "Save Entry";
+
+        /*
+           Use invoice date as the default
+           work date.
+        */
+
+        entryDate.value =
+            invoiceDate.value ||
+            new Date()
+                .toISOString()
+                .split("T")[0];
+
+    }
+
+
+    /*
+       Update calculation before showing
+       the modal.
+    */
+
     updatePreview();
 
+
+    /*
+       SHOW MODAL
+    */
+
     entryModal.classList.add("show");
+
+    /*
+       Prevent the page behind the modal
+       from scrolling.
+    */
+
+    document.body.classList.add("modal-open");
+
+
+    /*
+       Put focus inside the modal.
+    */
+
+    setTimeout(() => {
+
+        if (entry) {
+
+            startTime.focus();
+
+        } else {
+
+            entryDate.focus();
+
+        }
+
+    }, 50);
 
 }
 
 
+/* =========================================
+   CLOSE ENTRY MODAL
+========================================= */
+
 function closeEntryModal() {
 
     entryModal.classList.remove("show");
+
+    document.body.classList.remove(
+        "modal-open"
+    );
 
     clearModal();
 
@@ -183,11 +278,17 @@ function closeEntryModal() {
 }
 
 
+/* =========================================
+   CLEAR MODAL
+========================================= */
+
 function clearModal() {
 
     entryDate.value =
         invoiceDate.value ||
-        new Date().toISOString().split("T")[0];
+        new Date()
+            .toISOString()
+            .split("T")[0];
 
     startTime.value = "";
 
@@ -201,19 +302,31 @@ function clearModal() {
 
     modalError.classList.remove("show");
 
-    previewHours.textContent = "0.00";
+    previewHours.textContent =
+        "0.00";
 
-    previewLabor.textContent = "$0.00";
+    previewLabor.textContent =
+        "$0.00";
 
-    previewTotal.textContent = "$0.00";
+    previewTotal.textContent =
+        "$0.00";
 
 }
 
+
+/* =========================================
+   CLOSE BUTTON
+========================================= */
 
 closeModalBtn.addEventListener(
     "click",
     closeEntryModal
 );
+
+
+/* =========================================
+   CANCEL BUTTON
+========================================= */
 
 cancelModalBtn.addEventListener(
     "click",
@@ -221,15 +334,48 @@ cancelModalBtn.addEventListener(
 );
 
 
-entryModal.addEventListener("click", event => {
+/* =========================================
+   CLICK OUTSIDE MODAL
+========================================= */
 
-    if (event.target === entryModal) {
+entryModal.addEventListener(
+    "click",
+    event => {
 
-        closeEntryModal();
+        /*
+           If user clicks the dark area outside
+           the actual modal, close it.
+        */
+
+        if (event.target === entryModal) {
+
+            closeEntryModal();
+
+        }
 
     }
+);
 
-});
+
+/* =========================================
+   ESCAPE KEY
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape" &&
+            entryModal.classList.contains("show")
+        ) {
+
+            closeEntryModal();
+
+        }
+
+    }
+);
 
 
 /* =========================================
@@ -244,22 +390,38 @@ function calculateHours(start, end) {
 
     }
 
+
     const [startHour, startMinute] =
-        start.split(":").map(Number);
+        start
+            .split(":")
+            .map(Number);
+
 
     const [endHour, endMinute] =
-        end.split(":").map(Number);
+        end
+            .split(":")
+            .map(Number);
+
 
     let startMinutes =
-        startHour * 60 + startMinute;
+        startHour * 60 +
+        startMinute;
+
 
     let endMinutes =
-        endHour * 60 + endMinute;
+        endHour * 60 +
+        endMinute;
 
 
     /*
        If end time is earlier than start time,
        assume the work continues overnight.
+
+       Example:
+
+       10:00 PM → 2:00 AM
+
+       = 4 hours
     */
 
     if (endMinutes < startMinutes) {
@@ -272,6 +434,7 @@ function calculateHours(start, end) {
     const minutes =
         endMinutes - startMinutes;
 
+
     return minutes / 60;
 
 }
@@ -281,13 +444,19 @@ function calculateHours(start, end) {
    CALCULATE ENTRY
 ========================================= */
 
-function calculateEntry(hours, rate, travel) {
+function calculateEntry(
+    hours,
+    rate,
+    travel
+) {
 
     const labor =
         hours * rate;
 
+
     const total =
         labor + travel;
+
 
     return {
         labor,
@@ -309,7 +478,9 @@ function formatMoney(value) {
             style: "currency",
             currency: "USD"
         }
-    ).format(Number(value) || 0);
+    ).format(
+        Number(value) || 0
+    );
 
 }
 
@@ -326,11 +497,18 @@ function updatePreview() {
             endTime.value
         );
 
+
     const rate =
-        parseFloat(hourlyRate.value) || 0;
+        parseFloat(
+            hourlyRate.value
+        ) || 0;
+
 
     const travel =
-        parseFloat(travelCharge.value) || 0;
+        parseFloat(
+            travelCharge.value
+        ) || 0;
+
 
     const result =
         calculateEntry(
@@ -343,17 +521,23 @@ function updatePreview() {
     previewHours.textContent =
         hours.toFixed(2);
 
+
     previewLabor.textContent =
-        formatMoney(result.labor);
+        formatMoney(
+            result.labor
+        );
+
 
     previewTotal.textContent =
-        formatMoney(result.total);
+        formatMoney(
+            result.total
+        );
 
 }
 
 
 /* =========================================
-   LIVE PREVIEW EVENTS
+   LIVE PREVIEW
 ========================================= */
 
 [
@@ -369,11 +553,16 @@ function updatePreview() {
         updatePreview
     );
 
+    element.addEventListener(
+        "change",
+        updatePreview
+    );
+
 });
 
 
 /* =========================================
-   SAVE ENTRY
+   SAVE ENTRY BUTTON
 ========================================= */
 
 saveEntryBtn.addEventListener(
@@ -382,27 +571,42 @@ saveEntryBtn.addEventListener(
 );
 
 
+/* =========================================
+   SAVE ENTRY
+========================================= */
+
 function saveEntry() {
 
     modalError.classList.remove("show");
 
+
     const date =
         entryDate.value;
+
 
     const start =
         startTime.value;
 
+
     const end =
         endTime.value;
 
+
     const rate =
-        parseFloat(hourlyRate.value);
+        parseFloat(
+            hourlyRate.value
+        );
+
 
     const travel =
-        parseFloat(travelCharge.value) || 0;
+        parseFloat(
+            travelCharge.value
+        ) || 0;
 
 
-    /* Validation */
+    /* =====================================
+       VALIDATION
+    ===================================== */
 
     if (!date) {
 
@@ -414,6 +618,7 @@ function saveEntry() {
 
     }
 
+
     if (!start || !end) {
 
         showModalError(
@@ -423,6 +628,7 @@ function saveEntry() {
         return;
 
     }
+
 
     if (
         Number.isNaN(rate) ||
@@ -437,6 +643,7 @@ function saveEntry() {
 
     }
 
+
     if (travel < 0) {
 
         showModalError(
@@ -449,7 +656,10 @@ function saveEntry() {
 
 
     const hours =
-        calculateHours(start, end);
+        calculateHours(
+            start,
+            end
+        );
 
 
     if (hours <= 0) {
@@ -463,6 +673,10 @@ function saveEntry() {
     }
 
 
+    /* =====================================
+       CALCULATE COST
+    ===================================== */
+
     const calculation =
         calculateEntry(
             hours,
@@ -470,6 +684,10 @@ function saveEntry() {
             travel
         );
 
+
+    /* =====================================
+       CREATE ENTRY
+    ===================================== */
 
     const entry = {
 
@@ -498,30 +716,44 @@ function saveEntry() {
     };
 
 
+    /* =====================================
+       UPDATE EXISTING ENTRY
+    ===================================== */
+
     if (editingEntryId) {
 
         const index =
             entries.findIndex(
                 item =>
-                    item.id === editingEntryId
+                    item.id ===
+                    editingEntryId
             );
+
 
         if (index !== -1) {
 
-            entries[index] = entry;
+            entries[index] =
+                entry;
 
         }
 
-    } else {
+    }
+
+
+    /* =====================================
+       ADD NEW ENTRY
+    ===================================== */
+
+    else {
 
         entries.push(entry);
 
     }
 
 
-    /*
-       Sort entries by date.
-    */
+    /* =====================================
+       SORT BY DATE
+    ===================================== */
 
     entries.sort(
         (a, b) =>
@@ -529,6 +761,10 @@ function saveEntry() {
             new Date(b.date)
     );
 
+
+    /* =====================================
+       SAVE + UPDATE UI
+    ===================================== */
 
     saveToStorage();
 
@@ -542,12 +778,13 @@ function saveEntry() {
 
 
 /* =========================================
-   ERROR
+   SHOW MODAL ERROR
 ========================================= */
 
 function showModalError(message) {
 
-    modalError.textContent = message;
+    modalError.textContent =
+        message;
 
     modalError.classList.add("show");
 
@@ -562,16 +799,28 @@ function renderEntries() {
 
     entriesBody.innerHTML = "";
 
+
+    /*
+       No entries
+    */
+
     if (entries.length === 0) {
 
-        emptyMessage.style.display = "block";
+        emptyMessage.style.display =
+            "block";
 
         return;
 
     }
 
-    emptyMessage.style.display = "none";
 
+    emptyMessage.style.display =
+        "none";
+
+
+    /*
+       Create table row for each entry
+    */
 
     entries.forEach(entry => {
 
@@ -594,7 +843,7 @@ function renderEntries() {
             </td>
 
             <td class="hours-value">
-                ${entry.hours.toFixed(2)}
+                ${Number(entry.hours).toFixed(2)}
             </td>
 
             <td class="money">
@@ -616,6 +865,7 @@ function renderEntries() {
             <td>
 
                 <button
+                    type="button"
                     class="btn btn-secondary"
                     style="padding:7px 9px;"
                     onclick="editEntry(${entry.id})"
@@ -625,6 +875,7 @@ function renderEntries() {
                 </button>
 
                 <button
+                    type="button"
                     class="btn btn-danger"
                     style="padding:7px 9px;"
                     onclick="deleteEntry(${entry.id})"
@@ -636,6 +887,7 @@ function renderEntries() {
             </td>
 
         `;
+
 
         entriesBody.appendChild(row);
 
@@ -652,14 +904,17 @@ window.editEntry = function(id) {
 
     const entry =
         entries.find(
-            item => item.id === id
+            item =>
+                item.id === id
         );
+
 
     if (!entry) {
 
         return;
 
     }
+
 
     openEntryModal(entry);
 
@@ -674,8 +929,10 @@ window.deleteEntry = function(id) {
 
     const entry =
         entries.find(
-            item => item.id === id
+            item =>
+                item.id === id
         );
+
 
     if (!entry) {
 
@@ -699,7 +956,8 @@ window.deleteEntry = function(id) {
 
     entries =
         entries.filter(
-            item => item.id !== id
+            item =>
+                item.id !== id
         );
 
 
@@ -724,10 +982,13 @@ function formatDate(dateString) {
 
     }
 
+
     const date =
         new Date(
-            dateString + "T00:00:00"
+            dateString +
+            "T00:00:00"
         );
+
 
     return date.toLocaleDateString(
         "en-US",
@@ -753,6 +1014,7 @@ function formatTime(timeString) {
 
     }
 
+
     const [hours, minutes] =
         timeString
             .split(":")
@@ -761,6 +1023,7 @@ function formatTime(timeString) {
 
     const date =
         new Date();
+
 
     date.setHours(
         hours,
@@ -782,7 +1045,7 @@ function formatTime(timeString) {
 
 
 /* =========================================
-   SUMMARY
+   UPDATE SUMMARY
 ========================================= */
 
 function updateSummary() {
@@ -798,13 +1061,17 @@ function updateSummary() {
 
     entries.forEach(entry => {
 
-        hours += entry.hours;
+        hours +=
+            Number(entry.hours) || 0;
 
-        labor += entry.labor;
+        labor +=
+            Number(entry.labor) || 0;
 
-        travel += entry.travel;
+        travel +=
+            Number(entry.travel) || 0;
 
-        total += entry.total;
+        total +=
+            Number(entry.total) || 0;
 
     });
 
@@ -812,11 +1079,14 @@ function updateSummary() {
     totalHours.textContent =
         hours.toFixed(2);
 
+
     totalLabor.textContent =
         formatMoney(labor);
 
+
     totalTravel.textContent =
         formatMoney(travel);
+
 
     grandTotal.textContent =
         formatMoney(total);
@@ -834,11 +1104,14 @@ function saveToStorage() {
 
         person: {
 
-            name: personName.value,
+            name:
+                personName.value,
 
-            phone: phone.value,
+            phone:
+                phone.value,
 
-            email: email.value,
+            email:
+                email.value,
 
             invoiceNumber:
                 invoiceNumber.value,
@@ -860,6 +1133,10 @@ function saveToStorage() {
 
 }
 
+
+/* =========================================
+   LOAD FROM STORAGE
+========================================= */
 
 function loadFromStorage() {
 
@@ -887,14 +1164,18 @@ function loadFromStorage() {
             personName.value =
                 data.person.name || "";
 
+
             phone.value =
                 data.person.phone || "";
+
 
             email.value =
                 data.person.email || "";
 
+
             invoiceNumber.value =
                 data.person.invoiceNumber || "";
+
 
             invoiceDate.value =
                 data.person.invoiceDate ||
@@ -903,7 +1184,11 @@ function loadFromStorage() {
         }
 
 
-        if (Array.isArray(data.entries)) {
+        if (
+            Array.isArray(
+                data.entries
+            )
+        ) {
 
             entries =
                 data.entries;
@@ -939,6 +1224,11 @@ function loadFromStorage() {
         saveToStorage
     );
 
+    element.addEventListener(
+        "change",
+        saveToStorage
+    );
+
 });
 
 
@@ -969,6 +1259,7 @@ function clearAll() {
 
     entries = [];
 
+
     personName.value = "";
 
     phone.value = "";
@@ -976,6 +1267,7 @@ function clearAll() {
     email.value = "";
 
     invoiceNumber.value = "";
+
 
     invoiceDate.value =
         new Date()
@@ -992,6 +1284,12 @@ function clearAll() {
 
     updateSummary();
 
+    /*
+       Make sure modal is closed too.
+    */
+
+    closeEntryModal();
+
 }
 
 
@@ -1003,11 +1301,14 @@ printBtn.addEventListener(
     "click",
     () => {
 
-        if (!validateForOutput()) {
+        if (
+            !validateForOutput()
+        ) {
 
             return;
 
         }
+
 
         window.print();
 
@@ -1021,7 +1322,9 @@ printBtn.addEventListener(
 
 function validateForOutput() {
 
-    if (!personName.value.trim()) {
+    if (
+        !personName.value.trim()
+    ) {
 
         alert(
             "Please enter the person's name."
@@ -1034,7 +1337,9 @@ function validateForOutput() {
     }
 
 
-    if (entries.length === 0) {
+    if (
+        entries.length === 0
+    ) {
 
         alert(
             "Please add at least one work entry."
@@ -1062,7 +1367,27 @@ generatePdfBtn.addEventListener(
 
 function generatePDF() {
 
-    if (!validateForOutput()) {
+    if (
+        !validateForOutput()
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+       Check that jsPDF is available.
+    */
+
+    if (
+        !window.jspdf ||
+        !window.jspdf.jsPDF
+    ) {
+
+        alert(
+            "PDF library could not be loaded. Please check your internet connection and try again."
+        );
 
         return;
 
@@ -1091,7 +1416,7 @@ function generatePDF() {
 
 
     /* =====================================
-       HEADER
+       PDF HEADER
     ===================================== */
 
     doc.setFillColor(
@@ -1099,6 +1424,7 @@ function generatePDF() {
         99,
         235
     );
+
 
     doc.rect(
         0,
@@ -1147,7 +1473,7 @@ function generatePDF() {
 
 
     /* =====================================
-       INVOICE INFORMATION
+       PERSON INFORMATION
     ===================================== */
 
     doc.setTextColor(
@@ -1185,7 +1511,9 @@ function generatePDF() {
     );
 
 
-    if (phone.value.trim()) {
+    if (
+        phone.value.trim()
+    ) {
 
         doc.text(
             `Phone: ${phone.value.trim()}`,
@@ -1196,7 +1524,9 @@ function generatePDF() {
     }
 
 
-    if (email.value.trim()) {
+    if (
+        email.value.trim()
+    ) {
 
         doc.text(
             `Email: ${email.value.trim()}`,
@@ -1211,7 +1541,9 @@ function generatePDF() {
         pageWidth - 80;
 
 
-    if (invoiceNumber.value.trim()) {
+    if (
+        invoiceNumber.value.trim()
+    ) {
 
         doc.text(
             `Reference #: ${invoiceNumber.value.trim()}`,
@@ -1222,10 +1554,14 @@ function generatePDF() {
     }
 
 
-    if (invoiceDate.value) {
+    if (
+        invoiceDate.value
+    ) {
 
         doc.text(
-            `Invoice Date: ${formatDate(invoiceDate.value)}`,
+            `Invoice Date: ${formatDate(
+                invoiceDate.value
+            )}`,
             rightX,
             62
         );
@@ -1238,25 +1574,43 @@ function generatePDF() {
     ===================================== */
 
     const tableRows =
-        entries.map(entry => [
+        entries.map(
+            entry => [
 
-            formatDate(entry.date),
+                formatDate(
+                    entry.date
+                ),
 
-            formatTime(entry.start),
+                formatTime(
+                    entry.start
+                ),
 
-            formatTime(entry.end),
+                formatTime(
+                    entry.end
+                ),
 
-            entry.hours.toFixed(2),
+                Number(
+                    entry.hours
+                ).toFixed(2),
 
-            formatMoney(entry.rate),
+                formatMoney(
+                    entry.rate
+                ),
 
-            formatMoney(entry.labor),
+                formatMoney(
+                    entry.labor
+                ),
 
-            formatMoney(entry.travel),
+                formatMoney(
+                    entry.travel
+                ),
 
-            formatMoney(entry.total)
+                formatMoney(
+                    entry.total
+                )
 
-        ]);
+            ]
+        );
 
 
     doc.autoTable({
@@ -1376,23 +1730,30 @@ function generatePDF() {
     let totalCost = 0;
 
 
-    entries.forEach(entry => {
+    entries.forEach(
+        entry => {
 
-        totalHrs += entry.hours;
+            totalHrs +=
+                Number(entry.hours) || 0;
 
-        totalLab += entry.labor;
+            totalLab +=
+                Number(entry.labor) || 0;
 
-        totalTrav += entry.travel;
+            totalTrav +=
+                Number(entry.travel) || 0;
 
-        totalCost += entry.total;
+            totalCost +=
+                Number(entry.total) || 0;
 
-    });
+        }
+    );
 
 
     doc.setFont(
         "helvetica",
         "bold"
     );
+
 
     doc.setFontSize(12);
 
@@ -1408,6 +1769,7 @@ function generatePDF() {
         "helvetica",
         "normal"
     );
+
 
     doc.setFontSize(10);
 
@@ -1439,8 +1801,12 @@ function generatePDF() {
 
     const boxWidth = 80;
 
+
     const boxX =
-        pageWidth - boxWidth - 15;
+        pageWidth -
+        boxWidth -
+        15;
+
 
     const boxY =
         finalY - 5;
@@ -1525,7 +1891,7 @@ function generatePDF() {
 
 
     doc.text(
-        `Page 1`,
+        "Page 1",
         pageWidth - 25,
         pageHeight - 10
     );
@@ -1565,22 +1931,25 @@ function generatePDF() {
 
 
 /* =========================================
-   KEYBOARD ESCAPE
+   FINAL MODAL SAFETY
 ========================================= */
 
-document.addEventListener(
-    "keydown",
-    event => {
+window.addEventListener(
+    "load",
+    () => {
 
-        if (
-            event.key === "Escape" &&
-            entryModal.classList.contains("show")
-        ) {
+        /*
+           Never allow the modal to be visible
+           when the application initially loads.
+        */
 
-            closeEntryModal();
+        entryModal.classList.remove(
+            "show"
+        );
 
-        }
+        document.body.classList.remove(
+            "modal-open"
+        );
 
     }
 );
-
