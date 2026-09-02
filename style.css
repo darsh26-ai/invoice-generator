@@ -22,10 +22,8 @@ body {
         Arial,
         sans-serif;
 
-    background:
-      radial-gradient(circle at top left, #c7d2fe, transparent 40%),
-      radial-gradient(circle at top right, #f0abfc, transparent 40%),
-      #f8fafc;
+    background: #f3f6fb;
+    color: #1f2937;
     min-height: 100vh;
 }
 
@@ -48,18 +46,21 @@ body {
 
 .app-header {
     background: linear-gradient(
-         135deg,
-         #2563eb 0%,
-         #7c3aed 50%,
-         #ec4899 100%
-         );
-         padding: 30px;
-         border-radius: 18px;
-         margin-bottom: 22px;
-   box-shadow: 0 15px 40px rgba(124, 58, 237, 0.35);
+        135deg,
+        #2563eb,
+        #4f46e5
+    );
+
+    color: white;
+
+    padding: 30px;
+
+    border-radius: 18px;
+
+    margin-bottom: 22px;
+
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.18);
 }
-
-
 
 .app-header h1 {
     font-size: 30px;
@@ -78,14 +79,15 @@ body {
 
 .card,
 .summary-card {
-    background: rgba(255,255,255,0.95);
-    border: 1px solid rgba(99,102,241,0.15);
-    box-shadow:
-    0 12px 30px rgba(99,102,241,0.08);
-    transition: all 0.25s ease;
+    background: white;
+
     border-radius: 16px;
+
     padding: 25px;
+
     margin-bottom: 22px;
+
+    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.07);
 }
 
 
@@ -173,12 +175,10 @@ input {
 }
 
 input:focus {
-    border-color: #8b5cf6;
+    border-color: #2563eb;
 
     box-shadow:
-        0 0 0 4px rgba(139,92,246,0.2);
-   
-    background: #fff;
+        0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 
@@ -200,11 +200,7 @@ table {
 }
 
 thead {
-    background: linear-gradient(
-      90deg,
-      #eef2ff,
-      #f5f3ff
-      );
+    background: #f8fafc;
 }
 
 th {
@@ -234,7 +230,7 @@ td {
 }
 
 tbody tr:hover {
-    background: #eef4ff;
+    background: #fafcff;
 }
 
 
@@ -328,8 +324,7 @@ tbody tr:hover {
 }
 
 .btn:hover {
-    box-shadow:
-      0 10px 20px rgba(99,102,241,0.25);
+    transform: translateY(-1px);
 }
 
 .btn:active {
@@ -337,18 +332,12 @@ tbody tr:hover {
 }
 
 .btn-primary {
-    background: linear-gradient(
-      135deg,
-      #2563eb,
-      #7c3aed
+    background: #2563eb;
     color: white;
 }
 
 .btn-success {
-    background: linear-gradient(
-      135deg,
-      #10b981,
-      #22c55e
+    background: #16a34a;
     color: white;
 }
 
@@ -358,10 +347,7 @@ tbody tr:hover {
 }
 
 .btn-danger {
-    background: linear-gradient(
-      135deg,      
-      #ef4444,      
-      #f97316
+    background: #dc2626;
     color: white;
 }
 
@@ -766,4 +752,3 @@ footer {
         overflow: visible;
     }
 }
-
