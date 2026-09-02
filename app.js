@@ -1460,7 +1460,7 @@ function generatePDF() {
 
 
     doc.text(
-        "SERVICE COST SUMMARY",
+        "Henna Art Work Summary",
         15,
         15
     );
@@ -1475,7 +1475,7 @@ function generatePDF() {
 
 
     doc.text(
-        "Hourly Service Calculator",
+        "Invoice",
         15,
         23
     );
@@ -1893,7 +1893,7 @@ function generatePDF() {
 
 
     doc.text(
-        "Generated using Hourly Service Calculator",
+        "Henna Art Work Charge",
         15,
         pageHeight - 10
     );
