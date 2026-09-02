@@ -538,14 +538,15 @@ select option {
     width: 100%;
     max-width: 650px;
     max-height: 90vh;
-
     background: white;
     border-radius: 23px;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
     box-shadow: 0 30px 90px rgba(15, 23, 42, 0.30);
-
     transform: translateY(25px) scale(0.97);
     transition: transform 0.22s ease;
+
 }
 
 .modal-overlay.show .modal {
@@ -601,9 +602,9 @@ select option {
 ========================================= */
 
 .modal-body {
-    padding: 24px;
-    max-height: calc(90vh - 145px);
+    flex: 1;
     overflow-y: auto;
+    padding: 24px; 
 
     display: flex;
     flex-direction: column;
@@ -675,14 +676,15 @@ select option {
 ========================================= */
 
 .modal-footer {
-    padding: 18px 24px;
-    border-top: 1px solid #edf0f5;
-
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-
-    background: #fafbff;
+      position: sticky;
+      bottom: 0;
+      padding: 18px 24px;
+      border-top: 1px solid #edf0f5;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      background: #fafbff;
+      z-index: 10;
 }
 
 /* =========================================
@@ -770,7 +772,14 @@ footer {
     }
 
     .modal-header,
-    .modal-body,
+    .modal {
+      height: 95vh;
+      max-height: 95vh;
+   }
+   
+   .modal-body {
+      padding-bottom: 30px;
+   }
     .modal-footer {
         padding-left: 17px;
         padding-right: 17px;
