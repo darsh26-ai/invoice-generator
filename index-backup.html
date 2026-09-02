@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hourly Service Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- PDF Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- HEADER -->
+    <header class="app-header">
+        <div>
+            <h1>💼 Hourly Service Calculator</h1>
+            <p>Create professional service cost summaries</p>
+        </div>
+    </header>
+
+    <!-- PERSON INFORMATION -->
+    <section class="card">
+
+        <div class="section-title">
+            <span>👤</span>
+            <h2>Person Information</h2>
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label for="personName">Person Name *</label>
+                <input
+                    type="text"
+                    id="personName"
+                    placeholder="Enter person name"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input
+                    type="text"
+                    id="phone"
+                    placeholder="Optional"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Optional"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="invoiceNumber">Invoice / Reference #</label>
+                <input
+                    type="text"
+                    id="invoiceNumber"
+                    placeholder="Example: INV-1001"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="invoiceDate">Invoice Date</label>
+                <input type="date" id="invoiceDate">
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- WORK ENTRIES -->
+    <section class="card">
+
+        <div class="section-header">
+
+            <div class="section-title">
+                <span>🕐</span>
+                <h2>Work Entries</h2>
+            </div>
+
+            <button
+                type="button"
+                class="btn btn-primary"
+                id="addEntryBtn"
+            >
+                ➕ Add Work Entry
+            </button>
+
+        </div>
+
+
+        <!-- Desktop table -->
+        <div class="table-wrapper">
+
+            <table id="entriesTable">
+
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Hours</th>
+                    <th>Hourly Rate</th>
+                    <th>Labor</th>
+                    <th>Travel</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+
+                <tbody id="entriesBody">
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <div id="emptyMessage" class="empty-message">
+            No work entries yet.<br>
+            Click <strong>Add Work Entry</strong> to get started.
+        </div>
+
+    </section>
+
+
+    <!-- SUMMARY -->
+    <section class="summary-card">
+
+        <div class="summary-title">
+            <span>💰</span>
+            <h2>Cost Summary</h2>
+        </div>
+
+        <div class="summary-grid">
+
+            <div class="summary-item">
+                <span>Total Hours</span>
+                <strong id="totalHours">0.00</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Total Labor</span>
+                <strong id="totalLabor">$0.00</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Total Travel</span>
+                <strong id="totalTravel">$0.00</strong>
+            </div>
+
+            <div class="summary-item grand-total">
+                <span>Grand Total</span>
+                <strong id="grandTotal">$0.00</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ACTION BUTTONS -->
+    <section class="actions">
+
+        <button
+            type="button"
+            class="btn btn-success"
+            id="generatePdfBtn"
+        >
+            📄 Generate PDF
+        </button>
+
+        <button
+            type="button"
+            class="btn btn-secondary"
+            id="printBtn"
+        >
+            🖨️ Print
+        </button>
+
+        <button
+            type="button"
+            class="btn btn-danger"
+            id="clearBtn"
+        >
+            🔄 Clear All
+        </button>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Hourly Service Calculator</p>
+    </footer>
+
+</div>
+
+
+<!-- ENTRY MODAL -->
+<div
+    class="modal-overlay"
+    id="entryModal"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2>➕ Add Work Entry</h2>
+
+            <button
+                type="button"
+                class="close-btn"
+                id="closeModalBtn"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <div class="form-group">
+                <label for="entryDate">Date *</label>
+                <input type="date" id="entryDate">
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="startTime">Start Time *</label>
+                    <input type="time" id="startTime">
+                </div>
+
+                <div class="form-group">
+                    <label for="endTime">End Time *</label>
+                    <input type="time" id="endTime">
+                </div>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label for="hourlyRate">
+                        Hourly Charge ($) *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="hourlyRate"
+                        min="0"
+                        step="0.01"
+                        placeholder="40.00"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="travelCharge">
+                        Traveling Charge ($)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="travelCharge"
+                        min="0"
+                        step="0.01"
+                        value="0"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="calculation-preview">
+
+                <div>
+                    <span>Calculated Hours</span>
+                    <strong id="previewHours">0.00</strong>
+                </div>
+
+                <div>
+                    <span>Labor Cost</span>
+                    <strong id="previewLabor">$0.00</strong>
+                </div>
+
+                <div>
+                    <span>Entry Total</span>
+                    <strong id="previewTotal">$0.00</strong>
+                </div>
+
+            </div>
+
+
+            <div
+                class="error-message"
+                id="modalError"
+            ></div>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                id="cancelModalBtn"
+            >
+                Cancel
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-primary"
+                id="saveEntryBtn"
+            >
+                Save Entry
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
