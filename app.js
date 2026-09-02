@@ -837,6 +837,9 @@ function renderEntries() {
         row.innerHTML = `
 
             <td>
+                <strong>${entry.artist || ""}</strong>
+            </td>
+            <td>
                 ${formatDate(entry.date)}
             </td>
 
