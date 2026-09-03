@@ -661,17 +661,9 @@ tbody tr:last-child td {
 
 .summary-grid {
     display: grid;
-
-    grid-template-columns:
-        repeat(
-            4,
-            minmax(0, 1fr)
-        );
-
+    grid-template-columns: repeat(4, max-content);
     gap: 15px;
-
     width: 100%;
-
     align-items: stretch;
 }
 
@@ -682,44 +674,28 @@ tbody tr:last-child td {
 
 .summary-item {
     position: relative;
-
     overflow: hidden;
-
     min-width: 0;
-
     min-height: 110px;
-
     padding: 20px;
-
     border-radius: 17px;
-
     display: flex;
-
     flex-direction: column;
-
     justify-content: center;
-
     gap: 8px;
-
     color: white;
 }
 
 .summary-item::after {
     content: "";
-
     position: absolute;
-
     width: 85px;
     height: 85px;
-
     right: -30px;
     top: -30px;
-
     border-radius: 50%;
-
     background:
         rgba(255, 255, 255, 0.15);
-
     pointer-events: none;
 }
 
@@ -771,15 +747,10 @@ tbody tr:last-child td {
 
 .summary-item span {
     font-size: 13px;
-
     font-weight: 650;
-
     opacity: 0.92;
-
     white-space: nowrap;
-
     position: relative;
-
     z-index: 2;
 }
 
@@ -826,35 +797,21 @@ tbody tr:last-child td {
 
 .modal-overlay {
     position: fixed;
-
     inset: 0;
-
     width: 100%;
     height: 100%;
-
     padding: 15px;
-
     z-index: 9999;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     background:
         rgba(30, 27, 75, 0.58);
-
     backdrop-filter: blur(7px);
-
     -webkit-backdrop-filter: blur(7px);
-
     opacity: 0;
-
     visibility: hidden;
-
     pointer-events: none;
-
     transition:
         opacity 0.22s ease,
         visibility 0.22s ease;
@@ -862,9 +819,7 @@ tbody tr:last-child td {
 
 .modal-overlay.show {
     opacity: 1;
-
     visibility: visible;
-
     pointer-events: auto;
 }
 
@@ -875,30 +830,19 @@ tbody tr:last-child td {
 
 .modal {
     width: 100%;
-
     max-width: 650px;
-
     height: min(90vh, 700px);
-
     max-height: 90vh;
-
     background: white;
-
     border-radius: 23px;
-
     display: flex;
-
     flex-direction: column;
-
     overflow: hidden;
-
     box-shadow:
         0 30px 90px rgba(15, 23, 42, 0.30);
-
     transform:
         translateY(25px)
         scale(0.97);
-
     transition:
         transform 0.22s ease;
 }
@@ -916,21 +860,13 @@ tbody tr:last-child td {
 
 .modal-header {
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     gap: 15px;
-
     padding: 21px 24px;
-
     min-height: 75px;
-
     flex-shrink: 0;
-
     color: white;
-
     background:
         linear-gradient(
             135deg,
@@ -942,33 +878,22 @@ tbody tr:last-child td {
 
 .modal-header h2 {
     font-size: 21px;
-
     font-weight: 800;
 }
 
 .close-btn {
     width: 38px;
-
     height: 38px;
-
     flex:
         0 0 38px;
-
     border: none;
-
     border-radius: 50%;
-
     background:
         rgba(255,255,255,0.17);
-
     color: white;
-
     font-size: 27px;
-
     line-height: 1;
-
     cursor: pointer;
-
     transition:
         background 0.2s,
         transform 0.2s;
@@ -977,7 +902,6 @@ tbody tr:last-child td {
 .close-btn:hover {
     background:
         rgba(255,255,255,0.30);
-
     transform:
         rotate(90deg);
 }
@@ -989,19 +913,12 @@ tbody tr:last-child td {
 
 .modal-body {
     flex: 1;
-
     min-height: 0;
-
     overflow-y: auto;
-
     padding: 24px;
-
     display: flex;
-
     flex-direction: column;
-
     gap: 18px;
-
     -webkit-overflow-scrolling: touch;
 }
 
@@ -1016,14 +933,10 @@ tbody tr:last-child td {
 
 .calculation-preview {
     display: grid;
-
     grid-template-columns:
         repeat(3, minmax(0, 1fr));
-
     gap: 10px;
-
     padding: 15px;
-
     background:
         linear-gradient(
             135deg,
@@ -1033,40 +946,29 @@ tbody tr:last-child td {
 
     border:
         1px solid #ebe7ff;
-
     border-radius: 14px;
-
     flex-shrink: 0;
 }
 
 .calculation-preview div {
     padding: 12px;
-
     border-radius: 11px;
-
     background:
         rgba(255,255,255,0.75);
-
     min-width: 0;
 }
 
 .calculation-preview span {
     display: block;
-
     font-size: 12px;
-
     color: #64748b;
-
     margin-bottom: 5px;
-
     white-space: nowrap;
 }
 
 .calculation-preview strong {
     font-size: 18px;
-
     color: #334155;
-
     white-space: nowrap;
 }
 
@@ -1081,22 +983,14 @@ tbody tr:last-child td {
 
 .error-message {
     display: none;
-
     padding: 11px 13px;
-
     border-radius: 10px;
-
     background: #fff1f2;
-
     border:
         1px solid #fecdd3;
-
     color: #b91c1c;
-
     font-size: 13px;
-
     font-weight: 650;
-
     flex-shrink: 0;
 }
 
@@ -1111,26 +1005,16 @@ tbody tr:last-child td {
 
 .modal-footer {
     flex-shrink: 0;
-
     position: relative;
-
     width: 100%;
-
     padding: 16px 24px;
-
     border-top:
         1px solid #edf0f5;
-
     display: flex;
-
     justify-content: flex-end;
-
     align-items: center;
-
     gap: 10px;
-
     background: #fafbff;
-
     z-index: 20;
 }
 
