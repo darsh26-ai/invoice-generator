@@ -74,6 +74,7 @@ const hourlyRate =
 
 const travelCharge =
     document.getElementById("travelCharge");
+travelCharge.placeholder = "0.0";
 
 const previewHours =
     document.getElementById("previewHours");
@@ -302,7 +303,9 @@ function clearModal() {
 
     hourlyRate.value = "";
 
-    travelCharge.value = "0.0";
+    travelCharge.value = "";
+   
+    travelCharge.placeholder = "0.0";
 
     modalError.textContent = "";
 
