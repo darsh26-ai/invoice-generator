@@ -302,7 +302,7 @@ function clearModal() {
 
     hourlyRate.value = "";
 
-    travelCharge.value = "0";
+    travelCharge.value = "";
 
     modalError.textContent = "";
 
